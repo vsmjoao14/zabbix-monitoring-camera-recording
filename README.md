@@ -8,6 +8,11 @@ This repository provides a Bash script used to validate camera recordings on an 
 # Objective:
 The purpose of the script is to check that the cameras connected to the NVR are recording correctly, by trying to capture still images (frames) of an RTSP (Real-Time Streaming Protocol) video stream at specific intervals.
 
+# Image:
+
+![image](https://github.com/user-attachments/assets/3af90ec9-0011-4da1-b7c2-6223ae996c86)
+
+
 # Usage:
 Clone the repository:
 
