@@ -10,8 +10,7 @@ The purpose of the script is to check that the cameras connected to the NVR are 
 
 # Image:
 
-![image](https://github.com/user-attachments/assets/3af90ec9-0011-4da1-b7c2-6223ae996c86)
-
+![image](https://github.com/user-attachments/assets/7f90611d-14db-40e2-981b-3a9a520892ad)
 
 # Usage:
 Clone the repository:
