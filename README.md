@@ -104,3 +104,17 @@ CAM not recording on NVR:
 
 Availability of CAM recording on NVR < 90d:
 ‘count(/template/item_key,#6,"lt","90")>=6’. For recovery: ‘count(/template/item_key,#3,"ge","90")>=3’.
+
+# Note:
+
+It is recommended to also include another BASE template related to the camera model to monitor items such as ICMP, CPU, Memory, etc.
+
+# Idea: 
+
+Dashboard in Grafana:
+
+![Captura de tela 2024-08-27 210336](https://github.com/user-attachments/assets/8a6331eb-90d9-45fe-b55c-730757e32a8b)
+```markdown
+[Grafana Monitoring Camera Recording](https://github.com/vsmjoao14/grafana-monitoring-camera-recording)
+```
+
