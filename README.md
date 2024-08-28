@@ -96,6 +96,10 @@ When applying the template, it is necessary to pay attention to the macros withi
  - Macro: {$CAMCHANNEL.NVR}
  - Value: Secret Text
  - Description: NVR "NVR_HOSTNAME" Cam Channel
+5. DIRETÓRIO DA IMAGEM:
+ - Macro: {$IMG.DIR}
+ - Value: Text
+ - Description: Camera image directory (for default /opt/ffmpeg/return-base64/)
 
 ## Triggers:
 
