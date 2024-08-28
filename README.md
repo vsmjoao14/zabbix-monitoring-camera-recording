@@ -116,4 +116,13 @@ Dashboard in Grafana:
 ![Captura de tela 2024-08-27 210336](https://github.com/user-attachments/assets/8a6331eb-90d9-45fe-b55c-730757e32a8b)
 <a href="https://github.com/vsmjoao14/grafana-monitoring-camera-recording" style="display: inline-block; padding: 10px 20px; font-size: 16px; color: white; background-color: #007bff; text-align: center; text-decoration: none; border-radius: 5px;">Grafana Monitoring Camera Recording</a>
 
+# Possible next updates:
+
+  - Identification of image quality and content through AI.
+  - Analysis of a longer recording period beyond a single frame.
+
+If you have any questions or suggestions, don't hesitate to contact me:
+
+*E-mail: joao.souza0823@gmail.com*
+*LinkedIn: https://www.linkedin.com/in/joaovsouza/*
 
