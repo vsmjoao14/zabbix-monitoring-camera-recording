@@ -114,7 +114,6 @@ It is recommended to also include another BASE template related to the camera mo
 Dashboard in Grafana:
 
 ![Captura de tela 2024-08-27 210336](https://github.com/user-attachments/assets/8a6331eb-90d9-45fe-b55c-730757e32a8b)
-```markdown
-[Grafana Monitoring Camera Recording](https://github.com/vsmjoao14/grafana-monitoring-camera-recording)
-```
+<a href="https://github.com/vsmjoao14/grafana-monitoring-camera-recording" style="display: inline-block; padding: 10px 20px; font-size: 16px; color: white; background-color: #007bff; text-align: center; text-decoration: none; border-radius: 5px;">Grafana Monitoring Camera Recording</a>
+
 
