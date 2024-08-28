@@ -68,7 +68,7 @@ In this block, the script checks if the PNG file was created in the previous ste
  - 2 Triggers
 
 ## Description:
-The base template was created for use with Intelbras NVRs that support RTSP connection.
+The base template was created for use with Intelbras NVRs that support RTSP connection. However, it should work with any equipment that uses the RTSP protocol.
 
 ## Items:
 There are four items with the following names: CAM Recording, CAM Recording Availability %, CAM Recording Image, CAM Recording Num Of Days, and CAM Status. All items are disabled by default. It is recommended to modify, add, and remove items as needed.
@@ -119,7 +119,6 @@ Availability of CAM recording on NVR < 90d:
 # Note:
 
 It is recommended to also include another BASE template related to the camera model to monitor items such as ICMP, CPU, Memory, etc.
-Monitoring was tested and validated using the Intelbras NVR. However, it should work with any equipment that uses the RTSP protocol.
 
 # Idea: 
 
