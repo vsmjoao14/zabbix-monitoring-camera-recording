@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>6.0</version>
+    <date>2024-08-28T01:05:03Z</date>
+    <groups>
+        <group>
+            <uuid>53a0eccf80ac4b3baf595a4fb6cf9bc2</uuid>
+            <name>Templates/Custom</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <uuid>437404b329a34db3a0028742936d9409</uuid>
+            <template>Monitoring camera recording</template>
+            <name>Monitoring camera recording</name>
+            <description>###########################################################
+################# Monitoring camera recording ##################
+###########################################################
+
+# Description:
+# The purpose of the template is to check that the cameras connected to the NVR are recording correctly, by trying to capture still images (frames) of an RTSP (Real-Time Streaming Protocol) video stream at specific intervals.
+# It is necessary to configure according to the camera, setting the macros corresponding to the NVR and Channel where the camera is configured.
+
+# Written by: João Victor
+# GitHub: https://github.com/vsmjoao14
+# Date: 2024-08-27</description>
+            <groups>
+                <group>
+                    <name>Templates/Custom</name>
+                </group>
+            </groups>
+            <items>
+                <item>
+                    <uuid>86dbca6f2435463b88372880158b4d26</uuid>
+                    <name>CAM Recording Num Of Days</name>
+                    <type>EXTERNAL</type>
+                    <key>camera-record-num-of-days.sh[{$USER.NVR},{$PASSWD.NVR},{$HOSTIP.NVR},{$CAMCHANNEL.NVR},{HOST.IP}]</key>
+                    <delay>1h</delay>
+                    <history>1d</history>
+                    <trends>90d</trends>
+                    <units>!days</units>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <parameters>
+                                <parameter>var num = value;
+value = num / 1440;
+return (value);</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>recording</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>88c2941fa32d49ca9b40d78107016a56</uuid>
+                            <expression>count(/Monitoring camera recording/camera-record-num-of-days.sh[{$USER.NVR},{$PASSWD.NVR},{$HOSTIP.NVR},{$CAMCHANNEL.NVR},{HOST.IP}],#6,&quot;lt&quot;,&quot;90&quot;)&gt;=6</expression>
+                            <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                            <recovery_expression>count(/Monitoring camera recording/camera-record-num-of-days.sh[{$USER.NVR},{$PASSWD.NVR},{$HOSTIP.NVR},{$CAMCHANNEL.NVR},{HOST.IP}],#3,&quot;ge&quot;,&quot;90&quot;)&gt;=3</recovery_expression>
+                            <name>Availability of CAM recording on NVR &lt; 90d</name>
+                            <priority>WARNING</priority>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>f062e9a340cb48e4b43fba0026e3cc82</uuid>
+                    <name>CAM Recording</name>
+                    <type>EXTERNAL</type>
+                    <key>camera-record.sh[{$USER.NVR},{$PASSWD.NVR},{$HOSTIP.NVR},{$CAMCHANNEL.NVR},{HOST.IP}]</key>
+                    <delay>3m</delay>
+                    <history>7d</history>
+                    <trends>90d</trends>
+                    <valuemap>
+                        <name>CAM Recording</name>
+                    </valuemap>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>recording</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>873d245e419240d787b02a2d7406b962</uuid>
+                            <expression>count(/Monitoring camera recording/camera-record.sh[{$USER.NVR},{$PASSWD.NVR},{$HOSTIP.NVR},{$CAMCHANNEL.NVR},{HOST.IP}],#20,&quot;eq&quot;,&quot;0&quot;)&gt;=20</expression>
+                            <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                            <recovery_expression>count(/Monitoring camera recording/camera-record.sh[{$USER.NVR},{$PASSWD.NVR},{$HOSTIP.NVR},{$CAMCHANNEL.NVR},{HOST.IP}],#10,&quot;eq&quot;,&quot;1&quot;)&gt;=10</recovery_expression>
+                            <name>CAM not recording on NVR</name>
+                            <priority>WARNING</priority>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>3cddbb13996c4ffba00448636391f1a7</uuid>
+                    <name>CAM Status</name>
+                    <type>SIMPLE</type>
+                    <key>icmpping[,5]</key>
+                    <delay>5m</delay>
+                    <history>7d</history>
+                    <trends>90d</trends>
+                    <valuemap>
+                        <name>CAM Recording</name>
+                    </valuemap>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>recording</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>0e032815c7394f48b2c44f5fd43996d0</uuid>
+                    <name>CAM Recording Image</name>
+                    <type>EXTERNAL</type>
+                    <key>imagem-convert.sh[{$IMG.DIR}NVR-{$HOSTIP.NVR}-{$CAMCHANNEL.NVR}-{HOST.IP}.jpg]</key>
+                    <delay>30m</delay>
+                    <history>1h</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <parameters>
+                                <parameter>30m</parameter>
+                            </parameters>
+                        </step>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <parameters>
+                                <parameter>    if (value.startsWith(&quot;base64: /opt/ffmpeg/return-img/&quot;)) {
+        value = &quot;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&quot;;
+    }
+    return value;
+</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>recording</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>22b9d7d1725c4f79ac7eafe9d7d61d9f</uuid>
+                    <name>CAM Recording Availability %</name>
+                    <type>DEPENDENT</type>
+                    <key>recordingavailperc</key>
+                    <delay>0</delay>
+                    <history>7d</history>
+                    <trends>90d</trends>
+                    <status>DISABLED</status>
+                    <units>%</units>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <parameters>
+                                <parameter>100</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>camera-record.sh[{$USER.NVR},{$PASSWD.NVR},{$HOSTIP.NVR},{$CAMCHANNEL.NVR},{HOST.IP}]</key>
+                    </master_item>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>recording</value>
+                        </tag>
+                    </tags>
+                </item>
+            </items>
+            <tags>
+                <tag>
+                    <tag>template-class</tag>
+                    <value>monitoring</value>
+                </tag>
+            </tags>
+            <macros>
+                <macro>
+                    <macro>{$CAMCHANNEL.NVR}</macro>
+                    <value>change_this</value>
+                    <description>Camera channel in NVR</description>
+                </macro>
+                <macro>
+                    <macro>{$HOSTIP.NVR}</macro>
+                    <value>change_this</value>
+                    <description>NVR IP</description>
+                </macro>
+                <macro>
+                    <macro>{$IMG.DIR}</macro>
+                    <value>/opt/ffmpeg/return-img/</value>
+                    <description>Camera image directory (for default /opt/ffmpeg/return-base64/)</description>
+                </macro>
+                <macro>
+                    <macro>{$PASSWD.NVR}</macro>
+                    <value>change_this</value>
+                    <description>Password for authenticator in NVR</description>
+                </macro>
+                <macro>
+                    <macro>{$USER.NVR}</macro>
+                    <value>change_this</value>
+                    <description>User for authenticator in NVR Concentrator</description>
+                </macro>
+            </macros>
+            <valuemaps>
+                <valuemap>
+                    <uuid>7117e09e70eb44efaebcdd694bf9e85a</uuid>
+                    <name>CAM Recording</name>
+                    <mappings>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>Available</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>0</value>
+                            <newvalue>Unavailable</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+            </valuemaps>
+        </template>
+    </templates>
+</zabbix_export>
