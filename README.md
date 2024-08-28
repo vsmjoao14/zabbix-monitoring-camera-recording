@@ -23,13 +23,20 @@ cd zabbix-monitoring-camera-recording
 Copy the ffmpeg/ folder to the /opt/ directory:
 
 ```bash
-cp ffmpeg/ /opt/
+cp -r ffmpeg/ /opt/
 ```
 
 Copy the files camera-record.sh, camera-record-num-of-days.sh, and imagem-convert.sh to the /../externalscripts directory. By default, it is located at: /usr/lib/zabbix/externalscripts/
 
 ```bash
 cp camera-record.sh camera-record-num-of-days.sh imagem-convert.sh /usr/lib/zabbix/externalscripts/
+```
+
+Allow scripts to run:
+
+```bash
+cd /usr/lib/zabbix/externalscripts/
+chmod +x camera-record-num-of-days.sh camera-record.sh imagem-convert.sh
 ```
 
 # Script Content:
@@ -112,6 +119,7 @@ Availability of CAM recording on NVR < 90d:
 # Note:
 
 It is recommended to also include another BASE template related to the camera model to monitor items such as ICMP, CPU, Memory, etc.
+Monitoring was tested and validated using the Intelbras NVR. However, it should work with any equipment that uses the RTSP protocol.
 
 # Idea: 
 
