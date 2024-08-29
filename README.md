@@ -37,6 +37,8 @@ Allow scripts to run:
 ```bash
 cd /usr/lib/zabbix/externalscripts/
 chmod +x camera-record-num-of-days.sh camera-record.sh imagem-convert.sh
+chmod 755 -R /opt/ffmpeg
+chown zabbix:zabbix -R /opt/ffmpeg
 ```
 
 # Script Content:
